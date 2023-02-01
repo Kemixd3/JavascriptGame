@@ -4,12 +4,20 @@ const rainContainer = document.getElementById("rain-container");
 let money = 0;
 let moneyPerClick = 1;
 
-circle.addEventListener('click', function() {
+
+
+
+
+
+
+
+
+
+setInterval(function () {
+
   money += moneyPerClick;
   circle.innerHTML = `$${money}`;
   circle.style.transform = `rotate(${Math.random() * 360}deg)`;
-
-  // Rain dollar bills
   const dollarBill = document.createElement('div');
   dollarBill.classList.add('dollar');
   rainContainer.appendChild(dollarBill);
@@ -26,7 +34,82 @@ circle.addEventListener('click', function() {
       dollarBill.remove();
     }
   }, 40);
-});
+
+
+
+
+}, 1000);
+
+
+
+
+
+
+setInterval(function () {
+
+  money += moneyPerClick;
+  circle.innerHTML = `$${money}`;
+  circle.style.transform = `rotate(${Math.random() * 360}deg)`;
+  const dollarBill = document.createElement('div');
+  dollarBill.classList.add('dollar');
+  rainContainer.appendChild(dollarBill);
+  addDollarBillClickListener(dollarBill);
+  dollarBill.style.left = `${Math.random() * window.innerWidth}px`;
+  dollarBill.style.top = `0px`;
+  document.body.appendChild(dollarBill);
+
+  let intervalId = setInterval(function() {
+    const top = parseInt(dollarBill.style.top);
+    dollarBill.style.top = `${top + 10}px`;
+    if (top + 50 >= window.innerHeight) {
+      clearInterval(intervalId);
+      dollarBill.remove();
+    }
+  }, 80);
+
+
+
+
+}, 1800);
+
+
+
+setInterval(function () {
+
+  
+  circle.innerHTML = `$${money}`;
+  circle.style.transform = `rotate(${Math.random() * 360}deg)`;
+  const dollarBill = document.createElement('div');
+  dollarBill.classList.add('baddollar');
+  rainContainer.appendChild(dollarBill);
+  addDollarBillClickListener(dollarBill);
+  dollarBill.style.left = `${Math.random() * window.innerWidth}px`;
+  dollarBill.style.top = `0px`;
+  document.body.appendChild(dollarBill);
+
+  let intervalId = setInterval(function() {
+    const top = parseInt(dollarBill.style.top);
+    dollarBill.style.top = `${top + 10}px`;
+    if (top + 50 >= window.innerHeight) {
+      clearInterval(intervalId);
+      dollarBill.remove();
+      money -= 1000;
+    }
+  }, 80);
+
+
+
+
+}, 2000);
+
+
+
+
+
+
+
+
+
 
   
 upgradeButton.addEventListener('click', function() {
