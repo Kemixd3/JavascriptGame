@@ -36,6 +36,12 @@
     background-image: url('./Dollar.png');
     background-size: cover;
     cursor: pointer;
+
+
+    left: 0;
+    right: 0;
+    margin: auto;
+    
   }
   
 
@@ -47,11 +53,22 @@
     background-image: url('./BadDollar.png');
     background-size: cover;
     cursor: pointer;
+
+    left: 0;
+    right: 0;
+    margin: auto;
+    
   }
 
 
+  #game-canvas {
+    width: 500px;
+    height: 500px;
+    background-color: white;
+  }
+  
 
-
+  
 
 
   #upgrade-auto-click {
@@ -65,14 +82,18 @@
     cursor: pointer;
   }
   #rain-container {
-    position: absolute;
+    
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    display: none;
+
+
     
   }
   
+<<<<<<< Updated upstream
   
   #timer-container {
     position: absolute;
@@ -84,10 +105,15 @@
   
   #game-over-screen {
     position: fixed;
+=======
+  #start-screen {
+    position: absolute;
+>>>>>>> Stashed changes
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+<<<<<<< Updated upstream
     background-color: rgba(0, 0, 0, 0.8);
     display: none;
     align-items: center;
@@ -135,4 +161,22 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+=======
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #start-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+>>>>>>> Stashed changes
   

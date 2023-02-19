@@ -6,6 +6,7 @@ let moneyPerClick = 1;
 
 
 
+<<<<<<< Updated upstream
 const timerContainer = document.getElementById("timer-container");
 const gameOverScreen = document.getElementById("game-over");
 const moneyScore = document.getElementById("money-score");
@@ -28,21 +29,131 @@ let intervalId = setInterval(function() {
     gameOver();
   }
 }, 1000);
+=======
+
+const startScreen = document.getElementById("start-screen");
+const startButton = document.getElementById("start-button");
+const container = document.getElementById("container");
+
+const upgrade = document.getElementById("upgrade");
+
+const moneyCounter = document.getElementById("money-counter");
+
+startButton.addEventListener("click", function() {
+  startScreen.style.display = "none";
+  container.style.display = "block";
+  
+  // Add the rest of the game logic here
+});
+
+document.getElementById("start-button").addEventListener("click", function() {
+  document.getElementById("start-screen").style.display = "none";
+  document.getElementById("rain-container").style.display = "block";
+  startGame();
+});
 
 
+
+
+
+function startGame() {
+
+
+  setInterval(function () {
+
+    if (document.querySelectorAll('.dollar').length >= 10) {
+      return;
+    }
+  
+    circle.innerHTML = `$${money}`;
+    circle.style.transform = `rotate(${Math.random() * 360}deg)`;
+    const dollarBill = document.createElement('div');
+    dollarBill.classList.add('dollar');
+    rainContainer.appendChild(dollarBill);
+    addDollarBillClickListener(dollarBill);
+    dollarBill.style.left = `${Math.random() * 1000}px`;
+    dollarBill.style.right = `${Math.random() * 1000}px`;
+    dollarBill.style.top = `0px`;
+    document.body.appendChild(dollarBill);
+  
+    let intervalId = setInterval(function() {
+      const top = parseInt(dollarBill.style.top);
+      dollarBill.style.top = `${top + 10}px`;
+      if (top + 50 >= window.innerHeight) {
+        clearInterval(intervalId);
+        dollarBill.remove();
+        
+      }
+    }, 70);
+  
+  }, 2000);
+  
+  
+
+
+  
+
+
+
+  setInterval(function () {
+
+    if (document.querySelectorAll('.baddollar').length >= 10) {
+      return;
+    }
+  
+    circle.innerHTML = `$${money}`;
+    circle.style.transform = `rotate(${Math.random() * 360}deg)`;
+    const baddollarBill = document.createElement('div');
+    baddollarBill.classList.add('baddollar');
+    rainContainer.appendChild(baddollarBill);
+    addBadDollarBillClickListener(baddollarBill)
+    baddollarBill.style.left = `${Math.random() * 1000}px`;
+    baddollarBill.style.right = `${Math.random() * 1000}px`;
+    baddollarBill.style.top = `0px`;
+    document.body.appendChild(baddollarBill);
+  
+    let intervalId = setInterval(function() {
+      const top = parseInt(baddollarBill.style.top);
+      baddollarBill.style.top = `${top + 10}px`;
+      if (top + 50 >= window.innerHeight) {
+        clearInterval(intervalId);
+        baddollarBill.remove();
+        
+      }
+    }, 80);
+  
+  }, 2000);
+  
+  const addBadDollarBillClickListener = function(baddollarBill) {
+    baddollarBill.addEventListener("click", function() {
+      baddollarBill.remove();
+      money -= 10; 
+      moneyCounter.innerHTML = money + "$";
+    });
+  };
+>>>>>>> Stashed changes
+
+  const addDollarBillClickListener = function(dollarBill) {
+    dollarBill.addEventListener("click", function() {
+      dollarBill.remove();
+      money += 3 * moneyPerClick;
+      moneyCounter.innerHTML = money + "$";
+    });
+  };
+
+<<<<<<< Updated upstream
 setInterval(function () {
+=======
+  
 
-  money += moneyPerClick;
-  circle.innerHTML = `$${money}`;
-  circle.style.transform = `rotate(${Math.random() * 360}deg)`;
-  const dollarBill = document.createElement('div');
-  dollarBill.classList.add('dollar');
-  rainContainer.appendChild(dollarBill);
-  addDollarBillClickListener(dollarBill);
-  dollarBill.style.left = `${Math.random() * window.innerWidth}px`;
-  dollarBill.style.top = `0px`;
-  document.body.appendChild(dollarBill);
 
+
+}
+
+>>>>>>> Stashed changes
+
+
+<<<<<<< Updated upstream
   let intervalId = setInterval(function() {
     const top = parseInt(dollarBill.style.top);
     dollarBill.style.top = `${top + 10}px`;
@@ -52,16 +163,40 @@ setInterval(function () {
       console.log(dollarBill)
     }
   }, 80);
+=======
+>>>>>>> Stashed changes
 
 
 
 
+<<<<<<< Updated upstream
 }, 2000);
+=======
+>>>>>>> Stashed changes
 
+//setInterval(function () {
 
+//  money += moneyPerClick;
+//  circle.innerHTML = `$${money}`;
+//  circle.style.transform = `rotate(${Math.random() * 360}deg)`;
+//  const dollarBill = document.createElement('div');
+//  dollarBill.classList.add('dollar');
+//  rainContainer.appendChild(dollarBill);
+//  addDollarBillClickListener(dollarBill);
+//  dollarBill.style.left = `${Math.random() * window.innerWidth}px`;
+//  dollarBill.style.top = `0px`;
+//  document.body.appendChild(dollarBill);
 
-setInterval(function () {
+//  let intervalId = setInterval(function() {
+//    const top = parseInt(dollarBill.style.top);
+//    dollarBill.style.top = `${top + 10}px`;
+//    if (top + 50 >= window.innerHeight) {
+//      clearInterval(intervalId);
+//      dollarBill.remove();
+//    }
+//  }, 80);
 
+<<<<<<< Updated upstream
   
   circle.innerHTML = `$${money}`;
   circle.style.transform = `rotate(${Math.random() * 360}deg)`;
@@ -82,11 +217,13 @@ setInterval(function () {
       
     }
   }, 80);
+=======
+>>>>>>> Stashed changes
 
 
 
+//}, 1800);
 
-}, 2000);
 
 
 
@@ -114,6 +251,7 @@ upgradeAutoClick.addEventListener("click", function() {
   }
 });
 
+<<<<<<< Updated upstream
 const addDollarBillClickListener = function(dollarBill) {
     dollarBill.addEventListener("click", function() {
       dollarBill.remove();
@@ -132,6 +270,8 @@ const addDollarBillClickListener = function(dollarBill) {
       moneyScore.innerHTML = money + "$";
     });
   };
+=======
+>>>>>>> Stashed changes
 
 
 
