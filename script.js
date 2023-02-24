@@ -22,6 +22,12 @@ startButton.addEventListener("click", function() {
   // Add the rest of the game logic here
 });
 
+
+
+
+
+
+
 document.getElementById("start-button").addEventListener("click", function() {
   document.getElementById("start-screen").style.display = "none";
   document.getElementById("rain-container").style.display = "block";
@@ -58,8 +64,50 @@ const finalScore = document.getElementById("money-score");
 
 
 function startGame() {
+ const coin = document.querySelector("#coin1_container").classList.add("falling");
+ const bomb = document.querySelector("#bomb_container").classList.add("falling");
+  
+
+  // Registrer click
+  document.querySelector("#coin1_container").addEventListener("click", clickCoin);
+  document.querySelector("#bomb_container").addEventListener("click", clickBomb);
 
 
+
+
+  const coinContainers = document.querySelectorAll(".falling");
+
+  function randomizePosition(element) {
+    const startingPosition = Math.floor(Math.random() * window.innerWidth);
+    element.style.left = `${startingPosition}px`;
+    console.log("pos")
+  }
+
+
+  
+  function randomizeDelay(element) {
+    const delay = Math.floor(Math.random() * 4000);
+    element.style.animationDelay = `-${delay}ms`;
+    console.log("delay")
+  }
+  
+  coinContainers.forEach((coinContainer) => {
+    randomizePosition(coinContainer);
+    randomizeDelay(coinContainer);
+    console.log("con foreach")
+  });
+  
+  window.addEventListener("resize", () => {
+    coinContainers.forEach((coinContainer) => {
+      randomizePosition(coinContainer);
+      console.log("resize")
+    });
+  });
+  
+
+
+
+  
   setInterval(function () {
 
     if (document.querySelectorAll('.dollar').length >= 10) {
@@ -79,19 +127,91 @@ function startGame() {
   
     let intervalId = setInterval(function() {
       const top = parseInt(dollarBill.style.top);
-      dollarBill.style.top = `${top + 10}px`;
+      dollarBill.style.top = `${top + Math.floor(Math.random() * 10) + 1}px`;
       if (top + 50 >= window.innerHeight) {
         clearInterval(intervalId);
         dollarBill.remove();
         
       }
-    }, 70);
+    }, 40/1);
   
-  }, 2000);
-  
+  }, 6000/1);
   
 
+  function clickCoin() {
+    console.log("Click coin");
+    // Forhindr gentagne clicks
+    document.querySelector("#coin1_container").removeEventListener("click", clickCoin);
+   
+  
+    
+    // Stop coin container
+    document.querySelector("#coin1_container").classList.add("paused");
+  
+    // sæt forsvind-animation på coin
+    document.querySelector("#coin1_sprite").classList.add("zoom_out");
+  
+    // når forsvind-animation er færdig: coinGone
+    document.querySelector("#coin1_container").addEventListener("animationend", coinGone);
+    
+  }
+  
+  function coinGone() {
+    // fjern event der bringer os herind
+    document.querySelector("#coin1_container").removeEventListener("animationend", coinGone);
+  
+    // fjern forsvind-animation
+    document.querySelector("#coin1_sprite").classList.remove("zoom_out");
+    
+    // fjern pause
+    document.querySelector("#coin1_container").classList.remove("paused");
+  
+    // genstart falling animation
+    document.querySelector("#coin1_container").classList.remove("falling");
+    document.querySelector("#coin1_container").offsetWidth;
+    document.querySelector("#coin1_container").classList.add("falling");
+  
+    // gør det muligt at klikke på coin igen
+    document.querySelector("#coin1_container").addEventListener("click", clickCoin);
+  }
 
+
+
+
+  function clickBomb() {
+    console.log("Click bomb");
+    // Forhindr gentagne clicks
+    document.querySelector("#bomb_container").removeEventListener("click", clickBomb);
+    
+    // Stop coin container
+    document.querySelector("#bomb_container").classList.add("paused");
+  
+    // sæt forsvind-animation på coin
+    document.querySelector("#bomb_sprite").classList.add("zoom_in");
+  
+    // når forsvind-animation er færdig: coinGone
+    document.querySelector("#bomb_container").addEventListener("animationend", bombGone);
+    
+  }
+  
+  function bombGone() {
+    // fjern event der bringer os herind
+    document.querySelector("#bomb_container").removeEventListener("animationend", bombGone);
+  
+    // fjern forsvind-animation
+    document.querySelector("#bomb_sprite").classList.remove("zoom_in");
+    
+    // fjern pause
+    document.querySelector("#bomb_container").classList.remove("paused");
+  
+    // genstart falling animation
+    document.querySelector("#bomb_container").classList.remove("falling");
+    document.querySelector("#bomb_container").offsetWidth;
+    document.querySelector("#bomb_container").classList.add("falling");
+  
+    // gør det muligt at klikke på coin igen
+    document.querySelector("#bomb_container").addEventListener("click", clickBomb);
+  }
   
 
 
@@ -105,6 +225,7 @@ function startGame() {
     circle.innerHTML = `$${money}`;
     circle.style.transform = `rotate(${Math.random() * 360}deg)`;
     const baddollarBill = document.createElement('div');
+
     baddollarBill.classList.add('baddollar');
     rainContainer.appendChild(baddollarBill);
     addBadDollarBillClickListener(baddollarBill)
@@ -112,21 +233,25 @@ function startGame() {
     baddollarBill.style.right = `${Math.random() * 1000}px`;
     baddollarBill.style.top = `0px`;
     document.body.appendChild(baddollarBill);
-  
+ 
     let intervalId = setInterval(function() {
       const top = parseInt(baddollarBill.style.top);
       baddollarBill.style.top = `${top + 10}px`;
+      
+  
       if (top + 50 >= window.innerHeight) {
+        
         clearInterval(intervalId);
         baddollarBill.remove();
         
       }
-    }, 80);
+    }, 80/1);
   
-  }, 2000);
+  }, 5000/1);
   
   const addBadDollarBillClickListener = function(baddollarBill) {
     baddollarBill.addEventListener("click", function() {
+
       baddollarBill.remove();
       money -= 10; 
       moneyCounter.innerHTML = money + "$";
@@ -211,6 +336,6 @@ upgradeAutoClick.addEventListener("click", function() {
     moneyCounter.innerHTML = money + "$";
     autoClickInterval = setInterval(function() {
       circle.click();
-    }, 5000);
+    }, 5000/1);
   }
 });
