@@ -41,6 +41,8 @@ let intervalId = setInterval(function() {
   if (seconds < 10) {
     seconds = "0" + seconds;
   }
+
+
   timerContainer.innerHTML = `${minutes}:${seconds}`;
   if (timer === 0) {
     clearInterval(intervalId);
@@ -77,32 +79,7 @@ function startGame() {
 
   const coinContainers = document.querySelectorAll(".falling");
 
-  function randomizePosition(element) {
-    const startingPosition = Math.floor(Math.random() * window.innerWidth);
-    element.style.left = `${startingPosition}px`;
-    console.log("pos")
-  }
-
-
   
-  function randomizeDelay(element) {
-    const delay = Math.floor(Math.random() * 4000);
-    element.style.animationDelay = `-${delay}ms`;
-    console.log("delay")
-  }
-  
-  coinContainers.forEach((coinContainer) => {
-    randomizePosition(coinContainer);
-    randomizeDelay(coinContainer);
-    console.log("con foreach")
-  });
-  
-  window.addEventListener("resize", () => {
-    coinContainers.forEach((coinContainer) => {
-      randomizePosition(coinContainer);
-      console.log("resize")
-    });
-  });
   
 
 
@@ -131,7 +108,7 @@ function startGame() {
       if (top + 50 >= window.innerHeight) {
         clearInterval(intervalId);
         dollarBill.remove();
-        
+       
       }
     }, 40/1);
   
@@ -243,7 +220,32 @@ function startGame() {
         
         clearInterval(intervalId);
         baddollarBill.remove();
+        function randomizePosition(element) {
+          const startingPosition = Math.floor(Math.random() * window.innerWidth);
+          element.style.left = `${startingPosition}px`;
+          console.log("pos")
+        }
+      
+      
         
+        function randomizeDelay(element) {
+          const delay = Math.floor(Math.random() * 4000);
+          element.style.animationDelay = `-${delay}ms`;
+          console.log("delay")
+        }
+        
+        coinContainers.forEach((coinContainer) => {
+          randomizePosition(coinContainer);
+          randomizeDelay(coinContainer);
+          console.log("con foreach")
+        });
+        
+        window.addEventListener("resize", () => {
+          coinContainers.forEach((coinContainer) => {
+            randomizePosition(coinContainer);
+            console.log("resize")
+          });
+        });
       }
     }, 80/1);
   
