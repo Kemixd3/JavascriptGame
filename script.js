@@ -5,6 +5,9 @@ let money = 0; // initial money
 let damagePerClick = 1; // initial damage
 let health2 = 3; // initial health
 
+//Humanship image2
+//https://www.pngwing.com/en/free-png-nidsi/download
+
 
 //Parashoot
 //https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Ffreepng%2Fhand-painted-commercial-game-eat-chicken-airdrop-box-parachute-element-2_4029788.html&psig=AOvVaw1bjpK3Y1XRNuuD166VhkAr&ust=1678300787268000&source=images&cd=vfe&ved=0CBIQjhxqFwoTCPDo_-O7yv0CFQAAAAAdAAAAABAJ
@@ -31,6 +34,18 @@ document.addEventListener("mousedown", function() {
   // play audio when mouse button is clicked
   clickSound.play();
 });
+
+
+
+
+const humanshipSprite2 = document.querySelector("#humanship_sprite2");
+
+let imageIndex = 1;
+setInterval(() => {
+  imageIndex = (imageIndex % 2) + 1;
+  humanshipSprite2.src = `images/humanship${imageIndex}.png`;
+}, 5000);
+
 
 
 function renderTimer(timerSeconds, timerContainer, onTimerEnd) {
@@ -192,8 +207,8 @@ damagePerClick = 1;
  circle.innerHTML = `Money: ${money}`;
   // Registrer click
   document.querySelector("#para_container").addEventListener("click", clickPara);
-  document.querySelector("#humanship_container").addEventListener("click", clickBomb);
-  document.querySelector("#humanship_container2").addEventListener("click", clickBomb);
+  document.querySelector("#humanship_container").addEventListener("click", Clickhumanship);
+  document.querySelector("#humanship_container2").addEventListener("click", Clickhumanship);
   document.querySelector("#space_container").addEventListener("click", clickSpace);
 
 
@@ -207,13 +222,14 @@ damagePerClick = 1;
 
 
 
-
-  let health = 50;
-  const MAX_HEALTH = 50;
+ //setting the health of the alien ship
+  let health = 5;
+  const MAX_HEALTH = 5;
   
   function clickSpace() {
     console.log("Click coin");
-    // Forhindr gentagne clicks
+   
+    //Remove eventlistener to stop multiple clicks
     document.querySelector("#space_container").removeEventListener("click", clickSpace);
   
     // Subtract damagePerClick from health
@@ -236,27 +252,27 @@ damagePerClick = 1;
   
     circle.innerHTML = `Money: ${money}`;
   
-    // Stop coin container
+    //Stop space container
     document.querySelector("#space_container").classList.add("paused");
   
-    // sæt forsvind-animation på coin
+    //putting animation on class
     document.querySelector("#space_sprite").classList.add("zoom_out");
   
-    // når forsvind-animation er færdig: paraGone
+    //When animation is done
     document.querySelector("#space_container").addEventListener("animationend", SpaceGone);
   }
   
   function SpaceGone() {
-    // fjern event der bringer os herind
+    //Remove event
     document.querySelector("#space_container").removeEventListener("animationend", SpaceGone);
   
-    // fjern forsvind-animation
+    //Remove animation
     document.querySelector("#space_sprite").classList.remove("zoom_out");
     console.log(health)
 
 
 
-
+    //if the alien has 0 helth then show winscreen and reset game
     if (health <= 0) {
       clearInterval(intervalId);
       music.pause();
@@ -277,24 +293,7 @@ damagePerClick = 1;
         const winScreenForm = document.querySelector("#win_screen form");
         winScreenForm.addEventListener("submit", function(event) {
           event.preventDefault();
-          const difficultyRadios2 = document.querySelectorAll('input[name="difficulty2"]');
-          let timer2;
-          for (let i = 0; i < difficultyRadios2.length; i++) {
-            if (difficultyRadios2[i].checked) {
-              switch (difficultyRadios2[i].value) {
-                case "easy":
-                  timer2 = 300; // 5 minutes
-                  break;
-                case "hard":
-                  timer2 = 180; // 3 minutes
-                  break;
-                case "impossible":
-                  timer2 = 60; // 1 minute
-                  break;
-              }
-              break;
-            }
-          }
+          
           startGame(100);
         });
         
@@ -305,16 +304,16 @@ damagePerClick = 1;
 
 
 
-    // fjern pause
+    //Remove paused
     document.querySelector("#space_container").classList.remove("paused");
   
-    // genstart falling animation
+    //restart falling animation
     document.querySelector("#space_container").classList.remove("falling");
     document.querySelector("#space_container").offsetWidth;
     document.querySelector("#space_container").classList.add("falling");
   
-    // gør det muligt at klikke på coin igen
-    // gør det muligt at klikke på coin igen
+    //click on coin readded
+  
     document.querySelector("#space_container").addEventListener("click", clickSpace);
   }
 
@@ -336,92 +335,81 @@ damagePerClick = 1;
     console.log("Click coin");
     // Forhindr gentagne clicks
     document.querySelector("#para_container").removeEventListener("click", clickPara);
-   
+   //gain money and show it 
     money += 3 * damagePerClick;
     moneyCounter.innerHTML = damagePerClick + "Damage";
    
     circle.innerHTML = `Money: ${money}`;
     
-    // Stop coin container
+    //Stop para container
     document.querySelector("#para_container").classList.add("paused");
   
-    // sæt forsvind-animation på coin
+    //be gone animation on para
     document.querySelector("#para_sprite").classList.add("zoom_out");
   
-    // når forsvind-animation er færdig: paraGone
+    //when zoom animation is done
     document.querySelector("#para_container").addEventListener("animationend", paraGone);
     
   }
   
   function paraGone() {
-    // fjern event der bringer os herind
+    //fjern EventListener from clickpara 
     document.querySelector("#para_container").removeEventListener("animationend", paraGone);
   
-    // fjern forsvind-animation
+    //remove be gone animation
     document.querySelector("#para_sprite").classList.remove("zoom_out");
     
-    // fjern pause
+    //remove paused
     document.querySelector("#para_container").classList.remove("paused");
   
-    // genstart falling animation
+    //restart falling animation
     document.querySelector("#para_container").classList.remove("falling");
     document.querySelector("#para_container").offsetWidth;
     document.querySelector("#para_container").classList.add("falling");
   
-    // gør det muligt at klikke på coin igen
+    //click the coin readded
     document.querySelector("#para_container").addEventListener("click", clickPara);
   }
 
 
 
 
-  function clickBomb() {
-
+  function Clickhumanship() {
+    //remove player health hearts
     health2--;
-    
+    console.log("Clickhumanship");
+    document.querySelector("#humanship_container").removeEventListener("click", Clickhumanship);
+    document.querySelector("#humanship_container2").removeEventListener("click", Clickhumanship);
  
-
-    console.log("Click humanship");
-    // Forhindr gentagne clicks
-    document.querySelector("#humanship_container").removeEventListener("click", clickBomb);
-    document.querySelector("#humanship_container2").removeEventListener("click", clickBomb);
-    // Stop coin container
     document.querySelector("#humanship_container").classList.add("paused");
     document.querySelector("#humanship_container2").classList.add("paused");
-    // sæt forsvind-animation på coin
+  
     document.querySelector("#humanship_sprite").classList.add("explosion");
     document.querySelector("#humanship_sprite2").classList.add("explosion");
-    // når forsvind-animation er færdig: paraGone
+   
     document.querySelector("#humanship_container").addEventListener("animationend", humanshipGone);
     document.querySelector("#humanship_container2").addEventListener("animationend", humanshipGone);
+    //player gets a damage penalty
     money -= damagePerClick *2;
     moneyCounter.innerHTML = damagePerClick + "Damage";
-  
     
   }
   
   function humanshipGone() {
 
-
-  
-
     // remove a heart
     let hearts = document.querySelectorAll('.heart');
     hearts[health2].style.display = 'none';
 
-    
-
-
-    // fjern event der bringer os herind
     document.querySelector("#humanship_container").removeEventListener("animationend", humanshipGone);
     document.querySelector("#humanship_container2").removeEventListener("animationend", humanshipGone);
-    // fjern forsvind-animation
+
     document.querySelector("#humanship_sprite").classList.remove("explosion");
     document.querySelector("#humanship_sprite2").classList.remove("explosion");
-    // fjern pause
+
     document.querySelector("#humanship_container").classList.remove("paused");
     document.querySelector("#humanship_container2").classList.remove("paused");
-    // genstart falling animation
+
     document.querySelector("#humanship_container").classList.remove("falling");
     document.querySelector("#humanship_container2").classList.remove("falling");
 
@@ -430,15 +418,14 @@ damagePerClick = 1;
 
     document.querySelector("#humanship_container").classList.add("falling");
     document.querySelector("#humanship_container2").classList.add("falling");
-
-    // gør det muligt at klikke på coin igen
-    document.querySelector("#humanship_container").addEventListener("click", clickBomb);
-    document.querySelector("#humanship_container2").addEventListener("click", clickBomb);
+    
+    document.querySelector("#humanship_container").addEventListener("click", Clickhumanship);
+    document.querySelector("#humanship_container2").addEventListener("click", Clickhumanship);
 
 
 
    
-
+//if player loses all their hearts then they lose and go to gameover screen
     if (health2 == 0) {
       clearInterval(intervalId);
       music.pause();
@@ -485,20 +472,9 @@ damagePerClick = 1;
     let intervalId = setInterval(function() {
 
       
-  
       if (helloworld != true) {
         console.log(this.timer)
         clearInterval(intervalId);
-        
-
-
-
-
-
-
-
-
-
 
         function randomizePosition(element) {
           const startingPosition = Math.floor(Math.random() * (window.innerWidth * 1.5));
@@ -547,8 +523,8 @@ damagePerClick = 1;
 
   
 upgradeButton.addEventListener('click', function() {
-  if (money >= 40) {
-    money -= 40;
+  if (money >= 20) {
+    money -= 20;
     damagePerClick *= 2;
     circle.innerHTML = `$${money}`;
   }
