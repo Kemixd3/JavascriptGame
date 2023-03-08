@@ -4,58 +4,134 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-
-   
-
-    <div id="rain-container">
-      <div id="coin1_container" class="falling">
-        <img id="coin1_sprite" src="images/coin.svg" alt="mønt">
-      </div>
-      <div id="coin1_container" class="falling">
-        <img id="coin1_sprite" src="images/coin.svg" alt="mønt">
+  
+    <div id="game-container">
+      
+      <div id="scope"></div>
+      
+       <div id="rain-container">
+        
+      <div id="para_container" class="falling">
+        
+        <img id="para_sprite" src="images/para.png" alt="mønt" onclick="playSound('para_sound')">
       </div>
     
-      <div id="bomb_container" class="falling">
-        <img id="bomb_sprite" src="images/bomb.svg" alt="bombe">
+      <div id="humanship_container" class="falling">
+        <img id="humanship_sprite" src="images/humanship2.png" alt="humanshipe" onclick="playSound('humanship_sound')">
+      </div>
+      <div id="humanship_container2" class="falling">
+        <img id="humanship_sprite2" src="images/humanship.png" alt="humanshipe" onclick="playSound('humanship_sound')">
+      </div>
+      
+  
+
+      <div id="space_container" class="falling">
+        <img id="space_sprite" src="images/spaceship.png" alt="spaceship" onclick="playSound('point_sound')">
+        <div id="health_bar" style="width: 100%;"></div>
       </div>
     </div>
     
+    <audio id="para_sound">
+      <source src="good.mp3" type="audio/mpeg">
 
+      Your browser does not support the audio element.
+    </audio>
+    
+    <audio id="humanship_sound">
+      <source src="negative.mp3" type="audio/mpeg">
+ 
+      Your browser does not support the audio element.
+    </audio>
 
+    <audio id="point_sound">
+      <source src="point.mp3" type="audio/mpeg">
+ 
+      Your browser does not support the audio element.
+    </audio>
 
         <div id="timer-container">
-          <p id="timer">5:00</p>
+          <p id="timer"></p>
+
+          <div id="money-counter" style="text-align: center;">
+            <p>0 damage</p>
+          
+          </div>
         </div>
         <div id="container">
             <div id="circle">
-              0$
+              
             </div>
           </div>
           
-          <button id="upgrade">Upgrade Money Per Click (40$)</button>
-          <button id="upgrade-auto-click">Upgrade Auto-Click (100000$)</button>
-          <div id="money-counter">0$</div>
+          <button id="upgrade">Faster damage increase per click (Cost 20 money)</button>
+          <button id="upgrade-auto-click">Coming soon</button>
+       
 
-
+          <div id="health">
+            <img src="images/heart.png" alt="heart" class="heart" id="heart">
+            <img src="images/heart.png" alt="heart" class="heart" id="heart"> 
+            <img src="images/heart.png" alt="heart" class="heart" id="heart">
+          </div>
 
 
           
         </div>
-
-
-
-  
-
-    
-    
-  
-    <div id="start-screen">
-      <h1 style="margin-top: 160px;" class="pulse">Welcome to the Clicking Game!</h1>
-      <h2 style="margin-top: 200px;">Click the circle to earn money, and use your earnings to upgrade your clicks!</h2>
-      <button id="start-button" class="pulse">Start</button>
     </div>
     
+    
+  
+  </div>
+  
+  <div id="game-over" style="display: none;">
+    <h1 style="margin-top: 350px;"><strong style="color: red">Game Over!</strong></h1>
+    
+    <h1><strong style="color: red">You failed to destroy the intuder in time to save the galaxy</strong></h1>
+    <form>
+     
+    <h2>Total damage gained: <span id="total_money2"></span></p>
+    <h2>You failed to save the galaxy with <span id="remaining_time2"></span> seconds left on the clock!</p>
+      
+      <button style="background-color: green; color: white; padding: 30px 70px; font-size: 40px;" id="restart-button" type="submit" class="pulse">Replay</button>
+    </form>
+  </div>
 
+
+  <div id="win_screen">
+  
+    <h1>You won!</h1>
+    <p>Total damage gained: <span id="total_money"></span></p>
+    <p>You saved the galaxy with <span id="remaining_time"></span> seconds left on the clock!</p>
+    <form>
+  
+      
+    <button id="restart-button2" type="submit" class="pulse">Replay</button>
+  </form>
+  </div>
+  
+  
+  <div id="start-screen">
+    <h1 style="margin-top: 160px;" class="pulse">Welcome to the <strong style="color: red">SPACE INTRUDER SHOOTER</strong> game!</h1>
+    <h2><i>Most enjoyable with mouse</i></h2>
+    <h2 style="margin-top: 160px;">Shoot down the alien ship to earn money and save the galaxy, collect airdrops and use your earnings to upgrade your damage!</h2>
+    
+    <h2 style="margin-top: 100px;"><strong style="color:green">Alien ships</strong> = enemy objective + money</h1>
+    <h2><strong style="color:red">Human ships</strong> = -1 health</h1>
+    <h2><strong style="color:green">Airdrops</strong> = more money</h1>
+    <label style="font-size:50px"><input type="radio" name="difficulty" value="easy" checked>Easy</label>
+    <br>
+    <label style="font-size:50px"><input type="radio" name="difficulty" value="hard">Hard</label>
+    <br>
+    <label style="font-size:50px"><input type="radio" name="difficulty" value="impossible">Impossible</label>
+    <br>
+    <button id="start-button" class="pulse">Start</button>
+  </div>
   </body>
+  <script>
+    function playSound(soundId) {
+      var sound = document.getElementById(soundId);
+      sound.currentTime = 0;
+      sound.play();
+    }
+  </script>
   <script src="script.js"></script>
 </html>
