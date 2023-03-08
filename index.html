@@ -5,7 +5,6 @@
   </head>
   <body>
   
-    
     <div id="game-container">
       
       <div id="scope"></div>
@@ -51,7 +50,7 @@
     </audio>
 
         <div id="timer-container">
-          <p id="timer">5:00</p>
+          <p id="timer"></p>
 
           <div id="money-counter" style="text-align: center;">
             <p>0 damage</p>
@@ -64,7 +63,7 @@
             </div>
           </div>
           
-          <button id="upgrade">Faster damage increase per click (Cost 40 damage)</button>
+          <button id="upgrade">Faster damage increase per click (Cost 20 money)</button>
           <button id="upgrade-auto-click">Coming soon</button>
        
 
@@ -80,31 +79,19 @@
     </div>
     
     
-    
-    
-    
-
-   
-
-
-   
-  
-
-    
-  
   
   </div>
   
   <div id="game-over" style="display: none;">
-    <h1><strong style="color: red">Game Over!</strong></h1>
+    <h1 style="margin-top: 350px;"><strong style="color: red">Game Over!</strong></h1>
     
     <h1><strong style="color: red">You failed to destroy the intuder in time to save the galaxy</strong></h1>
     <form>
      
-    <p>Total damage gained: <span id="total_money2"></span></p>
-    <p>You failed to save the galaxy with <span id="remaining_time2"></span> seconds left on the clock!</p>
+    <h2>Total damage gained: <span id="total_money2"></span></p>
+    <h2>You failed to save the galaxy with <span id="remaining_time2"></span> seconds left on the clock!</p>
       
-      <button id="restart-button" type="submit" class="pulse">Replay</button>
+      <button style="background-color: green; color: white; padding: 30px 70px; font-size: 40px;" id="restart-button" type="submit" class="pulse">Replay</button>
     </form>
   </div>
 
@@ -124,8 +111,10 @@
   
   <div id="start-screen">
     <h1 style="margin-top: 160px;" class="pulse">Welcome to the <strong style="color: red">SPACE INTRUDER SHOOTER</strong> game!</h1>
-    <h2 style="margin-top: 200px;">Shoot down the alien ship to earn money and save the galaxy, collect airdrops and use your earnings to upgrade your damage!</h2>
-    <h2><strong style="color:green">Alien ships</strong> = enemy objective + money</h1>
+    <h2><i>Most enjoyable with mouse</i></h2>
+    <h2 style="margin-top: 160px;">Shoot down the alien ship to earn money and save the galaxy, collect airdrops and use your earnings to upgrade your damage!</h2>
+    
+    <h2 style="margin-top: 100px;"><strong style="color:green">Alien ships</strong> = enemy objective + money</h1>
     <h2><strong style="color:red">Human ships</strong> = -1 health</h1>
     <h2><strong style="color:green">Airdrops</strong> = more money</h1>
     <label style="font-size:50px"><input type="radio" name="difficulty" value="easy" checked>Easy</label>

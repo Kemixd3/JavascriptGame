@@ -1,6 +1,21 @@
 const circle = document.querySelector('#circle');
 const upgradeButton = document.querySelector('#upgrade');
 const rainContainer = document.getElementById("rain-container");
+const startScreen = document.getElementById("start-screen");
+const startButton = document.getElementById("start-button");
+const container = document.getElementById("container");
+const upgrade = document.getElementById("upgrade");
+const moneyCounter = document.getElementById("money-counter");
+const timerContainer = document.getElementById("timer-container");
+const gameOverScreen = document.getElementById("game-over");
+const moneyScore = document.getElementById("money-score");
+const restartButton = document.getElementById("restart-button");
+const humanshipSprite2 = document.querySelector("#humanship_sprite2");
+const scope = document.getElementById("scope");
+const gameContainer = document.getElementById("game-container");
+const upgradeAutoClick = document.getElementById("upgrade-auto-click");
+
+let autoClickInterval;
 let money = 0; // initial money
 let damagePerClick = 1; // initial damage
 let health2 = 3; // initial health
@@ -14,20 +29,12 @@ let health2 = 3; // initial health
 
 
 //https://pixabay.com/music/search/genre/ambient/?movement=fast
+
+
 const music = new Audio("SpaceRace.mp3");
 const winmp3 = new Audio("win.mp3");
 const clickSound = new Audio("beam.mp3");
-const startScreen = document.getElementById("start-screen");
-const startButton = document.getElementById("start-button");
-const container = document.getElementById("container");
 
-const upgrade = document.getElementById("upgrade");
-
-const moneyCounter = document.getElementById("money-counter");
-const timerContainer = document.getElementById("timer-container");
-const gameOverScreen = document.getElementById("game-over");
-const moneyScore = document.getElementById("money-score");
-const restartButton = document.getElementById("restart-button");
 
 
 document.addEventListener("mousedown", function() {
@@ -37,9 +44,7 @@ document.addEventListener("mousedown", function() {
 
 
 
-
-const humanshipSprite2 = document.querySelector("#humanship_sprite2");
-
+//shuffle between images 
 let imageIndex = 1;
 setInterval(() => {
   imageIndex = (imageIndex % 2) + 1;
@@ -47,7 +52,7 @@ setInterval(() => {
 }, 5000);
 
 
-
+//timer
 function renderTimer(timerSeconds, timerContainer, onTimerEnd) {
   let timer = timerSeconds;
   let intervalId = setInterval(function() {
@@ -58,6 +63,7 @@ function renderTimer(timerSeconds, timerContainer, onTimerEnd) {
       seconds = "0" + seconds;
     }
     timerContainer.innerHTML = `${minutes}:${seconds}`;
+    //timer at 0 condition
     if (timer === 0) {
       clearInterval(intervalId);
       onTimerEnd();
@@ -69,32 +75,7 @@ function renderTimer(timerSeconds, timerContainer, onTimerEnd) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-startButton.addEventListener("click", function() {
-  startScreen.style.display = "none";
-  container.style.display = "block";
-  
-  // Add the rest of the game logic here
-});
-
-
-const scope = document.getElementById("scope");
-const gameContainer = document.getElementById("game-container");
-
+//mouse move rainContainer left and right effect 
 document.addEventListener("mousemove", (event) => {
   const x = event.clientX;
   const y = event.clientY;
@@ -111,7 +92,7 @@ document.addEventListener("mousemove", (event) => {
   
 });
 
-
+//when restart button is clicked
 document.getElementById("restart-button").addEventListener("click", function() {
   document.getElementById("start-screen").style.display = "none";
   document.getElementById("game-over").style.display = "none";
@@ -119,13 +100,10 @@ document.getElementById("restart-button").addEventListener("click", function() {
   damagePerClick = 1;
   document.getElementById("rain-container").style.display = "block";
   
-  
-  
-
-
 });
 
 
+//when restart button2 is clicked
 document.getElementById("restart-button2").addEventListener("click", function() {
   document.getElementById("win_screen").style.display = "none";
   document.getElementById("game-over").style.display = "none";
@@ -140,16 +118,25 @@ document.getElementById("restart-button2").addEventListener("click", function() 
 
 
 
-
-
-
+//when start button is clicked
 
 document.getElementById("start-button").addEventListener("click", function(event) {
+
+  
+
+  startScreen.classList.add('fade-out');
+  //added fadeout animation to startscreen and added transitionend function that will display none once the animation is done
+  startScreen.addEventListener('transitionend', function() {
+    startScreen.style.display = 'none';
+  }, { once: true });
+
   event.preventDefault();
-  document.getElementById("start-screen").style.display = "none";
+  
   document.getElementById("rain-container").style.display = "block";
   const difficultyRadios = document.querySelectorAll('input[name="difficulty"]');
   let timer;
+
+  //choose difficulty case that sets the timer to 5, 3 or 1 minut based on the input from difficultyRadios
   for (let i = 0; i < difficultyRadios.length; i++) {
     if (difficultyRadios[i].checked) {
       switch (difficultyRadios[i].value) {
@@ -166,24 +153,21 @@ document.getElementById("start-button").addEventListener("click", function(event
       break;
     }
   }
+  //break and start the game with the chosen timer
   startGame(timer);
 });
 
 
 
 
-// Game timer
-
-
-
-
-
+//The start game function with timer value inserted
 function startGame(timer) {
 
   
   music.play();
 
   const timerContainer = document.querySelector("#timer");
+  //set the timer and what to do when timer runs out. Show game-over screen
   const intervalId = renderTimer(timer, timerContainer, function() {
     
     clearInterval(intervalId);
@@ -195,7 +179,7 @@ function startGame(timer) {
     
   });
 
-
+//starting values
 money = 0;
 damagePerClick = 1;
  const coin = document.querySelector("#para_container").classList.add("falling");
@@ -211,20 +195,12 @@ damagePerClick = 1;
   document.querySelector("#humanship_container2").addEventListener("click", Clickhumanship);
   document.querySelector("#space_container").addEventListener("click", clickSpace);
 
-
-
   const coinContainers = document.querySelectorAll(".falling");
 
   
-  
-
-
-
-
-
  //setting the health of the alien ship
-  let health = 5;
-  const MAX_HEALTH = 5;
+  let health = 80;
+  const MAX_HEALTH = 80;
   
   function clickSpace() {
     console.log("Click coin");
@@ -272,7 +248,7 @@ damagePerClick = 1;
 
 
 
-    //if the alien has 0 helth then show winscreen and reset game
+    //if the alien has 0 health then show winscreen and reset game
     if (health <= 0) {
       clearInterval(intervalId);
       music.pause();
@@ -302,8 +278,6 @@ damagePerClick = 1;
     } 
 
 
-
-
     //Remove paused
     document.querySelector("#space_container").classList.remove("paused");
   
@@ -312,24 +286,11 @@ damagePerClick = 1;
     document.querySelector("#space_container").offsetWidth;
     document.querySelector("#space_container").classList.add("falling");
   
-    //click on coin readded
+    //click on space readded
   
     document.querySelector("#space_container").addEventListener("click", clickSpace);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
 
   function clickPara() {
     console.log("Click coin");
@@ -441,8 +402,6 @@ damagePerClick = 1;
       restartButton.addEventListener("click", function() {
         gameoverscreen.style.display = "none";
 
-
-
         const gameOverScreenForm = document.querySelector("#game-over form");
         gameOverScreenForm.addEventListener("submit", function(event) {
           event.preventDefault();
@@ -454,55 +413,49 @@ damagePerClick = 1;
 
       });
     } 
-
-
-
-
   }
   
 
-
-
-
+//This code sets up a setInterval function with an interval of 3500 milliseconds, 
+//which runs a function that randomly positions and delays a group of HTML elements with the class name "coinContainers"
   setInterval(function () {
-
  
     let helloworld = false;
   
     let intervalId = setInterval(function() {
-
-      
       if (helloworld != true) {
-        console.log(this.timer)
         clearInterval(intervalId);
-
+//the random position function sets startingPosition somewhere in the with of window times 1.5
         function randomizePosition(element) {
           const startingPosition = Math.floor(Math.random() * (window.innerWidth * 1.5));
-          console.log(startingPosition)
-          element.style.left = `${startingPosition}px`;
          
+          element.style.left = `${startingPosition}px`;
           //console.log(startingPosition)
         }
       
       
-        
+        //set an animation delay 0-4 seconds for the next element to show
         function randomizeDelay(element) {
           const delay = Math.floor(Math.random() * 4000);
           element.style.animationDelay = `-${delay}ms`;
           console.log("delay")
         }
         
+        
+
+        //The loop then calls randomizePosition and randomizeDelay for each HTML element with the class name "coinContainers". 
+        //It also sets helloworld to true, so that the loop will not execute this block of code again until the setInterval function completes its 1160/1 millisecond interval.
         coinContainers.forEach((coinContainer) => {
           randomizePosition(coinContainer);
           randomizeDelay(coinContainer);
-          console.log("con foreach")
+         
           helloworld = true;
         });
-        
+        //"resize" event on the window object, which re-randomizes the position of each HTML element with the class name "coinContainers" whenever the window is resized.
         window.addEventListener("resize", () => {
           coinContainers.forEach((coinContainer) => {
             randomizePosition(coinContainer);
-            console.log("resize")
+            
           });
         });
       }
@@ -510,18 +463,10 @@ damagePerClick = 1;
   
   }, 3500/1);
 
-
-  
-
-
-
 }
 
 
-
-
-
-  
+//upgrade button EventListener that cost 20 money and will upgrade and double damagePerClick value
 upgradeButton.addEventListener('click', function() {
   if (money >= 20) {
     money -= 20;
@@ -531,10 +476,8 @@ upgradeButton.addEventListener('click', function() {
 });
 
 
-
-const upgradeAutoClick = document.getElementById("upgrade-auto-click");
-let autoClickInterval;
-
+//not in use yet but is intended to help collect an airdrop automatic every 5 seconds
+//it works but i just set a crazy cost because im still not sure if this should be an implementation or not.
 upgradeAutoClick.addEventListener("click", function() {
   if (money >= 100000 && !autoClickInterval) {
     money -= 100000;

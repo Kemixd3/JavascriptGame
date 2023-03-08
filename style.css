@@ -212,6 +212,10 @@ body {
 }
 
 
+#start-screen.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
 
 
 
@@ -344,27 +348,7 @@ body {
   width: 100%;   
 }
 
-#coin2_container {
-  position: absolute;
-  
-  top: 0;
-  left: 40vw;
-}
 
-#coin2_sprite {
-  width: 100%;
-}
-
-#coin3_container {
-  position: absolute;
-  
-  top: 0;
-  left: 70vw;
-}
-
-#coin3_sprite {
-  width: 100%;
-}
 
 #humanship_container #humanship_container2  {
   position: absolute;
@@ -442,23 +426,6 @@ body {
   width: 1em;
 }
 
-#life_board {
-  margin-block-start: .2em;
-  display: grid;
-  grid-template-columns: 1.2em 1.2em 1.2em;
-}
-
-#life_board img {
-  width: 100%;
-}
-
-.active_heart {
- filter: drop-shadow(0 0 2px yellow);
-}
-
-.broken_heart {
-  filter: grayscale(75%) blur(.5px);
-}
 
 /* Animations */
 
@@ -543,12 +510,6 @@ body {
 
   }
 }
-
-
-
-
-
-
 
 
 
