@@ -28,37 +28,11 @@
   color: white;
   font-size: 20px;
   cursor: pointer;
-}
-.dollar {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-image: url('./Dollar.png');
-  background-size: cover;
-  cursor: pointer;
-
-
-  left: 0;
-  right: 0;
-  margin: auto;
-  
+  z-index: 1;
 }
 
 
 
-.baddollar {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-image: url('./BadDollar.png');
-  background-size: cover;
-  cursor: pointer;
-
-  left: 0;
-  right: 0;
-  margin: auto;
-  
-}
 
 
 #game-canvas {
@@ -68,7 +42,51 @@
 
 }
 
+#game-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
+#scope {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  border: 2px solid red;
+  border-radius: 50%;
+  margin: -100px 0 0 -100px;
+  box-sizing: border-box;
+  pointer-events: none;
+  background-color: transparent;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.9);
+  z-index: 1;
+}
+
+
+
+
+#scope::before,
+#scope::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: red;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+#scope::before {
+  transform: rotate(45deg);
+}
+
+#scope::after {
+  transform: rotate(-45deg);
+}
 
 
 
@@ -93,21 +111,42 @@
   animation-duration: 4s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  z-index: 2; /* Set z-index to a higher value than #scope */
 }
 
 @keyframes falling {
   0% {
-    transform: translate(0, -100%);
+    transform: translate(-50%, -100%) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-25%, 50vh) rotate(30deg);
   }
 
   100% {
-    transform: translate(0, 100vh);
+    transform: translate(0, 100vh) rotate(0deg);
   }
 }
 
 
 
 
+
+#game-over {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+
+}
 
 
 
@@ -121,7 +160,7 @@
   height: 100%;
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
-  
+  z-index: 1;
   align-items: center;
   justify-content: center;
 
@@ -132,16 +171,72 @@ body {
   background-image: url('Horror.webp');
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: none;
+
   
 }
 
 #timer-container {
   position: absolute;
   top: 40px;
-  right: 10px;
+  right: 1250px;
   font-size: 20px;
+  color: white;
   font-weight: bold;
+  
+  z-index: 1;
 }
+
+
+#health {
+  position: absolute;
+  bottom: 20px;
+  left: 10%;
+  transform: translateX(-50%);
+  padding: 20px 40px;
+  
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+
+
+
+.heart {
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  z-index: 1;
+}
+
+
+
+
+
+
+
+
+
+#money-counter {
+
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  transform: translate(-25%, -55%);
+
+
+ 
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  
+  z-index: 1;
+}
+
+
+
 
 #game-over-screen p {
   font-size: 40px;
@@ -164,6 +259,27 @@ body {
 }
 
 #start-button {
+  margin-top: 150px;
+  padding: 30px 70px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 40px;
+}
+#restart-button {
+  margin-top: 150px;
+  padding: 30px 70px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+#restart-button2 {
   margin-top: 150px;
   padding: 30px 70px;
   background-color: green;
@@ -217,14 +333,14 @@ body {
 
 /* positioning elements */
 
-#coin1_container {
+#para_container {
   position: absolute;
   
   top: 0;
   left: 10vw;
 }
 
-#coin1_sprite {
+#para_sprite {
   width: 100%;   
 }
 
@@ -250,14 +366,14 @@ body {
   width: 100%;
 }
 
-#bomb_container {
+#humanship_container #humanship_container2  {
   position: absolute;
-  
+  max-width: 200px; 
   top: 0;
   left: 30vw;
 }
 
-#bomb_sprite {
+#humanship_sprite #humanship_sprite2 {
   width: 100%;
 }
 
@@ -270,6 +386,31 @@ body {
 
 #heart_sprite {
   width: 100%;
+}
+@keyframes explosion {
+  0% {
+    transform: scale(0.3);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.explosion {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  border-radius: 50%;
+  animation: explosion 0.5s linear;
 }
 
 
@@ -404,3 +545,68 @@ body {
 }
 
 
+
+
+
+
+
+
+
+#health_bar {
+  height: 5px;
+  background-color: green;
+  transition: width 0.5s ease-in-out;
+}
+
+#health_bar.low {
+  background-color: red;
+}
+
+#health_bar.depleted {
+  background-color: gray;
+}
+
+#space_container.paused #health_bar {
+  animation-play-state: paused;
+}
+
+@keyframes zoom_out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+
+#space_sprite.zoom_out {
+  animation: zoom_out 0.5s ease-in-out forwards;
+}
+
+#win_screen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  text-align: center;
+}
+
+#win_screen h1 {
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  margin-top: 20%;
+}
+
+#win_screen p {
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  margin-top: 5%;
+}
