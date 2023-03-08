@@ -178,10 +178,10 @@ body {
 
 #timer-container {
   position: absolute;
-  top: 40px;
-  right: 1250px;
-  font-size: 20px;
-  color: white;
+  top: 50px;
+  left: 48%;
+  font-size: 40px;
+  color: green;
   font-weight: bold;
   
   z-index: 1;
@@ -226,14 +226,14 @@ body {
 #money-counter {
 
   position: absolute;
-  top: 30%;
-  left: 40%;
+  top: 5%;
+  left: 48%;
   transform: translate(-25%, -55%);
 
 
  
-  font-size: 20px;
-  color: white;
+  font-size: 40px;
+  
   font-weight: bold;
   
   z-index: 1;
